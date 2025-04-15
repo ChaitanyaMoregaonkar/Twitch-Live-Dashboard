@@ -14,6 +14,12 @@ top_games_df = twitch_api.get_top_games()
 selected_game = st.selectbox("Select a game to see top streamers:", top_games_df['name'])
 selected_game_id = top_games_df[top_games_df['name'] == selected_game]['id'].values[0]
 
+
+# Display top streamers for the selected game
+st.subheader(f"Top Streamers Playing: {selected_game}")
+top_streams_df = twitch_api.get_top_streams(game_id=selected_game_id)
+st.dataframe(top_streams_df[['user_name', 'title', 'viewer_count', 'started_at']])
+
 # --- Create a Chart: Aggregated Viewer Count Across Top Games ---
 st.subheader("Aggregated Viewer Count Across Top Games")
 # Retrieve aggregated viewer data
@@ -40,9 +46,5 @@ top_games_df = twitch_api.get_top_games()
 st.dataframe(top_games_df[['name', 'box_art_url']])
 
 
-# Display top streamers for the selected game
-st.subheader(f"Top Streamers Playing: {selected_game}")
-top_streams_df = twitch_api.get_top_streams(game_id=selected_game_id)
-st.dataframe(top_streams_df[['user_name', 'title', 'viewer_count', 'started_at']])
 
 
