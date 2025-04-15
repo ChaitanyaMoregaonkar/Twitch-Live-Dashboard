@@ -7,6 +7,7 @@ st.set_page_config(page_title="Live Twitch Dashboard", layout="wide")
 st.title("🎮 Twitch Live Dashboard")
 st.markdown("Live data showing top games and top streamers on Twitch.")
 
+top_games_df = twitch_api.get_top_games()
 # --- Create a Chart: Aggregated Viewer Count Across Top Games ---
 st.subheader("Aggregated Viewer Count Across Top Games")
 # Retrieve aggregated viewer data
