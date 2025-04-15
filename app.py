@@ -7,6 +7,10 @@ st.set_page_config(page_title="Live Twitch Dashboard", layout="wide")
 st.title("🎮 Twitch Live Dashboard")
 st.markdown("Live data showing top games and top streamers on Twitch.")
 
+# Select a game to view its streams
+selected_game = st.selectbox("Select a game to see top streamers:", top_games_df['name'])
+selected_game_id = top_games_df[top_games_df['name'] == selected_game]['id'].values[0]
+
 top_games_df = twitch_api.get_top_games()
 # --- Create a Chart: Aggregated Viewer Count Across Top Games ---
 st.subheader("Aggregated Viewer Count Across Top Games")
@@ -33,9 +37,6 @@ st.subheader("Top Games on Twitch")
 top_games_df = twitch_api.get_top_games()
 st.dataframe(top_games_df[['name', 'box_art_url']])
 
-# Select a game to view its streams
-selected_game = st.selectbox("Select a game to see top streamers:", top_games_df['name'])
-selected_game_id = top_games_df[top_games_df['name'] == selected_game]['id'].values[0]
 
 # Display top streamers for the selected game
 st.subheader(f"Top Streamers Playing: {selected_game}")
